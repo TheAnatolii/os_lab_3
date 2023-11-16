@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
     // close(file);
 
-    sem_t *sem = sem_open("mmap_sem", O_CREAT, 0777, 0); // открываем семафор
+    sem_t *sem = sem_open("mmap_sem", O_CREAT, 0777, 1); // открываем семафор
 
     if (sem == SEM_FAILED)
     {

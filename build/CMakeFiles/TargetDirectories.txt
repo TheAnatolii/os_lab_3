@@ -1,4 +1,0 @@
-/Users/anatolii/Desktop/Oper_Syst/hometask_3/build/CMakeFiles/parent.dir
-/Users/anatolii/Desktop/Oper_Syst/hometask_3/build/CMakeFiles/child.dir
-/Users/anatolii/Desktop/Oper_Syst/hometask_3/build/CMakeFiles/edit_cache.dir
-/Users/anatolii/Desktop/Oper_Syst/hometask_3/build/CMakeFiles/rebuild_cache.dir
