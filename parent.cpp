@@ -10,7 +10,7 @@
 int main(int argc, char *argv[])
 {
     // считываем и открываем файл
-    int file = open("output.txt", O_RDONLY | O_CREAT, 0777);
+    int file = open("output.txt", O_RDWR, 0666);
 
     if (file == -1)
     {
@@ -27,9 +27,9 @@ int main(int argc, char *argv[])
     //  MAP_SHARED - используется всеми процессами
     // memory_map создался на основе file и начинает чтение с 0 байта (смещение = 0)
 
-    // close(file);
+    close(file);
 
-    sem_t *sem = sem_open("mmap_sem", O_CREAT, 0777, 1); // открываем семафор
+    sem_t *sem = sem_open("mmap_sem", O_CREAT, 0777, 0); // открываем семафор
 
     if (sem == SEM_FAILED)
     {
@@ -47,24 +47,17 @@ int main(int argc, char *argv[])
     { // child process
 
         execlp("./child", "./child", "mmap_sem", NULL);
-
         return 3;
     }
     else
     { // parent process
         sem_wait(sem);
 
-        int i = 0;
-        std::string answer;
-        while (buffer[i] != '\0')
-        {
-            answer += buffer[i];
-        }
-
-        std::cout << answer << std::endl;
-        sem_close(sem);
+        std::cout << buffer << std::endl;
 
         munmap(buffer, 1024);
+        sem_close(sem);
+        sem_unlink("mmap_sem");
 
         int status;
         waitpid(0, &status, 0);

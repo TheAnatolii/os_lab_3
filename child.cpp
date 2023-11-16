@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[])
 {
-    int file = open("output.txt", O_RDONLY | O_CREAT, 0777);
+    int file = open("output.txt", O_RDWR, 0666);
 
     if (file == -1)
     {
@@ -25,9 +25,9 @@ int main(int argc, char *argv[])
     //  MAP_SHARED - используется всеми процессами
     // memory_map создался на основе file и начинает чтение с 0 байта (смещение = 0)
 
-    // close(file);
+    close(file);
 
-    sem_t *sem = sem_open(argv[1], O_CREAT, 0777, 1); // открываем семафор
+    sem_t *sem = sem_open(argv[1], O_CREAT, 0777, 0); // открываем семафор
 
     if (sem == SEM_FAILED)
     {
@@ -51,14 +51,14 @@ int main(int argc, char *argv[])
         }
         ++i;
     }
-
-    std::cout << sum << std::endl;
+    sum += num;
+    num = 0;
 
     i = 0;
     std::string k = std::to_string(sum);
     for (char elem : k)
     {
-        buffer[i] = elem;
+        buffer[i++] = elem;
     }
 
     buffer[i + 1] = '\0';
