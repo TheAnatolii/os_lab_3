@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/Users/anatolii/Desktop/Oper_Syst/hometask_3/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -o CMakeFiles/parent.dir/parent.cpp.o -c /Users/anatolii/Desktop/Oper_Syst/hometask_3/parent.cpp",
+  "file": "/Users/anatolii/Desktop/Oper_Syst/hometask_3/parent.cpp",
+  "output": "CMakeFiles/parent.dir/parent.cpp.o"
+},
+{
+  "directory": "/Users/anatolii/Desktop/Oper_Syst/hometask_3/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -o CMakeFiles/child.dir/child.cpp.o -c /Users/anatolii/Desktop/Oper_Syst/hometask_3/child.cpp",
+  "file": "/Users/anatolii/Desktop/Oper_Syst/hometask_3/child.cpp",
+  "output": "CMakeFiles/child.dir/child.cpp.o"
+}
+]
