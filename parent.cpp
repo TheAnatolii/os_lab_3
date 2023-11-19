@@ -10,24 +10,24 @@
 int main(int argc, char *argv[])
 {
     // считываем и открываем файл
-    int file = open("output.txt", O_RDWR, 0666);
+    int common_memory = open("com_mem.txt", O_RDWR | O_CREAT, 0666);
 
-    if (file == -1)
+    if (common_memory == -1)
     {
         return -1;
     }
     // берём из файла первые 1024 байта
-    ftruncate(file, 1024);
+    ftruncate(common_memory, 1024);
 
     // создаём memory_map - общую память процессов
-    char *buffer = (char *)mmap(NULL, 1024, PROT_READ | PROT_WRITE, MAP_SHARED, file, 0);
+    char *buffer = (char *)mmap(NULL, 1024, PROT_READ | PROT_WRITE, MAP_SHARED, common_memory, 0);
     // NULL - выбранное ядро(не выбрано)
     // 1024 байта - размер
     // PROT_READ | PROT_WRITE - доступ к чтению и записи
     //  MAP_SHARED - используется всеми процессами
     // memory_map создался на основе file и начинает чтение с 0 байта (смещение = 0)
 
-    close(file);
+    close(common_memory);
 
     sem_t *sem = sem_open("mmap_sem", O_CREAT, 0777, 0); // открываем семафор
 

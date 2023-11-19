@@ -8,24 +8,24 @@
 
 int main(int argc, char *argv[])
 {
-    int file = open("output.txt", O_RDWR, 0666);
+    FILE *file = fopen("output.txt", "r");
+    int common_memory = open("com_mem.txt", O_RDWR | O_CREAT, 0666);
 
-    if (file == -1)
+    if (common_memory == -1)
     {
         return -1;
     }
     // берём из файла первые 1024 байта
-    ftruncate(file, 1024);
+    ftruncate(common_memory, 1024);
 
     // создаём memory_map - общую память процессов
-    char *buffer = (char *)mmap(NULL, 1024, PROT_READ | PROT_WRITE, MAP_SHARED, file, 0);
+    char *buffer = (char *)mmap(NULL, 1024, PROT_READ | PROT_WRITE, MAP_SHARED, common_memory, 0);
     // NULL - выбранное ядро(не выбрано)
     // 1024 байта - размер
     // PROT_READ | PROT_WRITE - доступ к чтению и записи
     //  MAP_SHARED - используется всеми процессами
     // memory_map создался на основе file и начинает чтение с 0 байта (смещение = 0)
-
-    close(file);
+    close(common_memory);
 
     sem_t *sem = sem_open(argv[1], O_CREAT, 0777, 0); // открываем семафор
 
@@ -36,21 +36,25 @@ int main(int argc, char *argv[])
     }
 
     int num = 0, sum = 0, i = 0;
+    char symb;
+    std::cout << "I'm here" << std::endl;
 
-    while (buffer[i] != '\n')
+    while ((symb = getc(file)) != '\n')
     {
-        if (buffer[i] != ' ')
+        std::cout << symb << std::endl;
+        if (symb != ' ')
         {
             num *= 10;
-            num += buffer[i] - '0';
+            num += symb - '0';
         }
-        else if (buffer[i] == ' ')
+        else if (symb == ' ')
         {
             sum += num;
             num = 0;
         }
         ++i;
     }
+    fclose(file);
     sum += num;
     num = 0;
 
