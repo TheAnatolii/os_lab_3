@@ -37,11 +37,9 @@ int main(int argc, char *argv[])
 
     int num = 0, sum = 0, i = 0;
     char symb;
-    std::cout << "I'm here" << std::endl;
 
     while ((symb = getc(file)) != '\n')
     {
-        std::cout << symb << std::endl;
         if (symb != ' ')
         {
             num *= 10;

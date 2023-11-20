@@ -58,12 +58,6 @@ int main(int argc, char *argv[])
         munmap(buffer, 1024);
         sem_close(sem);
         sem_unlink("mmap_sem");
-
-        int status;
-        waitpid(0, &status, 0);
-
-        if (status != 0)
-            perror("Child process exited with an error");
     }
 
     return 0;
