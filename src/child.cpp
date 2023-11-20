@@ -63,13 +63,13 @@ int main(int argc, char *argv[])
         buffer[i++] = elem;
     }
 
-    buffer[i + 1] = '\0';
+    buffer[i] = '\0';
 
     sem_post(sem);
 
     sem_close(sem);
 
-    munmap(buffer, 1024);
+    munmap(buffer, 0);
 
     return 0;
 }

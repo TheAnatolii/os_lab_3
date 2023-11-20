@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 
         std::cout << buffer << std::endl;
 
-        munmap(buffer, 1024);
+        munmap(buffer, 0);
         sem_close(sem);
         sem_unlink("mmap_sem");
     }
