@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 
     i = 0;
     std::string k = std::to_string(sum);
-    for (char elem : k)
+    for (char &elem : k)
     {
         buffer[i++] = elem;
     }
